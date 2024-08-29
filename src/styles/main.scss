@@ -5,6 +5,7 @@
 @use 'available-devices';
 @use 'faq';
 @use 'footer';
+@use 'header';
 
 @font-face {
     font-family: Avenir;
@@ -23,9 +24,10 @@
     padding: 0;
     box-sizing: border-box;
     font-family: Avenir, sans-serif;
+    list-style: none;
 }
 
-@mixin text($fontSize: 16px){
+@mixin text($fontSize: 16px) {
     font-size: $fontSize;
     line-height: $fontSize + 10px;
     color: variaveis.$colorTextMain;
@@ -36,35 +38,75 @@
     color: variaveis.$colorTextSecondary;
 }
 
-body{
+body {
     background-color: variaveis.$bgColor;
 }
 
 .button {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 100%;
     height: 50px;
     font-size: 18px;
     margin: 0 auto;
     color: variaveis.$colorTextSecondary;
-    background-color: #6421ff;
+    background-color: variaveis.$corDeFundoButtonPrimary;
     text-transform: uppercase;
     border-radius: 4px;
-    margin-top: 2vw;
-    margin-bottom: 8px;
-    border: none;
+    border: 1px solid variaveis.$corDeFundoButtonPrimary;
+    text-decoration: none;
+    padding: 8px 14px;
+    letter-spacing: 1px;
+
+    &:hover {
+        background-color: lighten(variaveis.$corDeFundoButtonPrimary, 3%);
+        color: variaveis.$bgColor;
+    }
+
+    &--secondary {
+        background-color: variaveis.$corDeFundoButtonSecondary;
+        border-color: variaveis.$corDeFundoButtonSecondary;
+
+        &:hover {
+            background-color: lighten(variaveis.$corDeFundoButtonSecondary, 5%);
+            color: variaveis.$bgColor;
+        }
+    }
+
+    &--dark {
+        background-color: rgba(variaveis.$corDeFundoButtonDark, 0.8);
+        border-color: variaveis.$colorTextSecondary;
+
+        &:hover {
+            background-color: variaveis.$colorTextSecondary;
+            color: variaveis.$bgColor;
+        }
+    }
 }
 
-.text--big{
+.text--big {
     @include text(18px);
+
+    @media (max-width: 768px){
+        @include text(15px);
+    }
 }
 
 .text {
     @include text;
+
+    @media (max-width: 768px){
+        @include text(14px);
+    }
 }
 
-.text--small{
-    @include text(12px)
+.text--small {
+    @include text(12px);
+
+    @media (max-width: 768px){
+        @include text(11px);
+    }
 }
 
 .link-text {
@@ -73,45 +115,61 @@ body{
     text-decoration: underline;
 }
 
-.title--big{
+.title--big {
     @include title(44px);
+
+    @media (max-width: 768px){
+        @include title(26px);
+    }
 }
 
-.title{
+.title {
     @include title;
+
+    @media (max-width: 768px){
+        @include title(24px);
+    }
 }
 
-.title--small{
+.title--small {
     @include title(24px);
+
+    @media (max-width: 768px){
+        @include title(22px);
+    }
 }
 
-.image-text-section{
+.image-text-section {
     padding: 2vw 5vw;
     display: grid;
     grid-template-columns: 1fr 1fr;
     align-items: center;
 
-    img{
+    @media (max-width: 768px) {
+        display: block;
+    }
+
+    img {
         max-width: 100%;
     }
 
-    &__text_container{
+    &__text_container {
         padding: 0 2vw;
 
-        h2{
+        h2 {
             margin-bottom: 24px;
         }
     }
 
-    &--image-full-width{
+    &--image-full-width {
         display: block;
         position: relative;
 
-        img{
+        img {
             width: 100%;
         }
 
-        &__text_container{
+        &__text_container {
             position: absolute;
             top: 0;
             left: 50%;
@@ -120,7 +178,12 @@ body{
             display: flex;
             flex-direction: column;
             justify-content: center;
-            
+
+            @media (max-width: 768px) {
+                position: relative;
+                left: 0;
+                width: 100%;
+            }
         }
     }
 }
